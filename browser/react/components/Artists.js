@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import FilterableArtistsContainer from '../containers/FilterableArtistsContainer'
 
 const Artists = (props) => {
 

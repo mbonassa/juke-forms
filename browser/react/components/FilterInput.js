@@ -1,4 +1,5 @@
 import React from 'react';
+import FilterableArtistsContainer from '../containers/FilterableArtistsContainer'
 
 const FilterInput = (props) => {
   return (
