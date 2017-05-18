@@ -1,32 +1,40 @@
 import React, { Component } from 'react';
 import NewPlaylist from '../components/NewPlaylist';
+import axios from 'axios';
 
 export default class NewPlaylistContainer extends Component {
   constructor(){
     super()
     this.state = {
-      inputValue: ''
+      inputValue: '',
+      disabled: true,
+      warning: false
     }
-    console.log('calling render: ', this.render());
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ inputValue: event.target.value})
-    console.log(this.state);
+    event.target.value.length === 0 || event.target.value.length > 16 ? 
+    this.setState({inputValue: event.target.value, disabled: true, warning: true}) : 
+    this.setState({inputValue: event.target.value, disabled: false, warning: false})
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    console.log("hello", this.state.inputValue);
-    this.setState({ inputValue: ''});
+  handleSubmit (evt) {
+    evt.preventDefault();
+    const addPlaylist = this.props.addPlaylist;
+    addPlaylist(this.state.inputValue);
+    this.setState({inputValue: ''})
   }
+
+  
   render(){
-
     return (
         <NewPlaylist handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}/>
+          handleChange={this.handleChange}
+          value={this.state.inputValue}
+          disabled={this.state.disabled}
+          warning={this.state.warning} />
       );
   }
 
